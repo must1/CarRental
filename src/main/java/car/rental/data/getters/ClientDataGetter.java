@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ClientDataGetter {
 
     private Random rand = new Random();
-    private int maxNumberOfClients  = 999;
+    private int maxNumberOfClients = 999;
 
     public Client createClient(Scanner input) {
         Client client = new Client();

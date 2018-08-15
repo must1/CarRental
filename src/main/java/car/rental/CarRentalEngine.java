@@ -9,6 +9,8 @@ import car.rental.activities.WorkerActivities;
 import car.rental.data.getters.ClientDataGetter;
 import car.rental.data.getters.WorkerDataGetter;
 import car.rental.DB.CarRentalSQLDatabase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class CarRentalEngine {
 
@@ -20,14 +22,16 @@ class CarRentalEngine {
     private CarRentalOptions carRentalOptions = new CarRentalOptions(storage);
     private ClientDataGetter clientDataGetter = new ClientDataGetter();
     private WorkerDataGetter workerDataGetter = new WorkerDataGetter();
+    private Logger logger = LoggerFactory.getLogger(CarRentalEngine.class);
 
     CarRentalEngine() throws SQLException {
     }
 
     void startCarRental() throws SQLException {
-        System.out.println("Who are you?\n1. Customer\n2. Worker");
+        logger.info("Who are you?\n1. Customer\n2. Worker");
+        option = input.nextInt();
         try {
-            switch (input.nextInt()) {
+            switch (option) {
                 case CUSTOMER:
                     executeClientCase();
                     break;
@@ -36,7 +40,7 @@ class CarRentalEngine {
                     break;
             }
         } catch (InputMismatchException e) {
-            System.err.println("Your input is wrong!");
+            logger.error("Your input is wrong!");
         }
     }
 
@@ -84,14 +88,14 @@ class CarRentalEngine {
 
 
     private void executeClientCase() throws SQLException {
-        System.out.println("1. Have you inputted your data before?\nN/Y: ");
+        logger.info("1. Have you inputted your data before?\nN/Y: ");
         if (input.next().toUpperCase().equals("N")) {
             carRentalOptions.createNewCustomer(clientDataGetter.createClient(input));
-            System.out.println("Now you have your unique number clinet, use it where it is required!");
+            logger.info("Now you have your unique number clinet, use it where it is required!");
         } else {
             do {
-                System.out.println("What do you want to do?");
-                System.out.println("1. Rent a car\n2. Return a car\n3. Populate rented cars\n4. Populate cars\n5. Quit");
+                logger.info("What do you want to do?");
+                logger.info("1. Rent a car\n2. Return a car\n3. Populate rented cars\n4. Populate cars\n5. Quit");
                 option = input.nextInt();
                 executeOptionsForClient(option);
             }
@@ -101,8 +105,8 @@ class CarRentalEngine {
 
     private void executeWorkerCase() throws SQLException {
         do {
-            System.out.println("What do you want to do?");
-            System.out.println("1. Populate clients\n2. Populate cars\n3. Make car available\n4. Make car unavailable\n5. Insert new car\n6. Quit");
+            logger.info("What do you want to do?");
+            logger.info("1. Populate clients\n2. Populate cars\n3. Make car available\n4. Make car unavailable\n5. Insert new car\n6. Quit");
             option = input.nextInt();
             executeOptionsForWorker(option);
         }
