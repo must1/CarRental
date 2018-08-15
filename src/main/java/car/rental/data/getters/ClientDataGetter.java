@@ -10,10 +10,11 @@ import java.util.Scanner;
 public class ClientDataGetter {
 
     private Random rand = new Random();
+    private int maxNumberOfClients  = 999;
 
     public Client createClient(Scanner input) {
         Client client = new Client();
-        client.setClientNumber(rand.nextInt(999));
+        client.setClientNumber(rand.nextInt(maxNumberOfClients));
 
         System.out.print("name: ");
         client.setName(input.next());

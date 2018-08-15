@@ -4,12 +4,16 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import car.rental.activities.ClientActivities;
+import car.rental.activities.WorkerActivities;
 import car.rental.data.getters.ClientDataGetter;
 import car.rental.data.getters.WorkerDataGetter;
-import car.rental.db.CarRentalSQLDatabase;
+import car.rental.DB.CarRentalSQLDatabase;
 
 class CarRentalEngine {
 
+    private static final int CUSTOMER = 1;
+    private static final int WORKER = 2;
     private int option;
     private Scanner input = new Scanner(System.in);
     private CarRentalSQLDatabase storage = new CarRentalSQLDatabase();
@@ -24,10 +28,10 @@ class CarRentalEngine {
         System.out.println("Who are you?\n1. Customer\n2. Worker");
         try {
             switch (input.nextInt()) {
-                case 1:
+                case CUSTOMER:
                     executeClientCase();
                     break;
-                case 2:
+                case WORKER:
                     executeWorkerCase();
                     break;
             }
@@ -39,19 +43,19 @@ class CarRentalEngine {
 
     private void executeOptionsForClient(int option) throws SQLException {
         switch (option) {
-            case 1:
+            case ClientActivities.RENT_CAR:
                 carRentalOptions.rentACar(clientDataGetter.rentACar(input));
                 break;
-            case 2:
+            case ClientActivities.RETURN_CAR:
                 carRentalOptions.returnACar(clientDataGetter.returnACar(input));
                 break;
-            case 3:
+            case ClientActivities.POPULATE_TABLE_RENTED_CARS:
                 carRentalOptions.populateTableRent(clientDataGetter.populateTableRent(input));
                 break;
-            case 4:
+            case ClientActivities.POPULATE_TABLE_CARS:
                 carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
                 break;
-            case 5:
+            case ClientActivities.QUIT:
                 break;
         }
     }
@@ -59,21 +63,21 @@ class CarRentalEngine {
 
     private void executeOptionsForWorker(int option) throws SQLException {
         switch (option) {
-            case 1:
+            case WorkerActivities.GET_ALL_CUSTOMERS:
                 carRentalOptions.getAllCustomers();
                 break;
-            case 2:
+            case WorkerActivities.GET_VIEW_OF_CARS:
                 carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
                 break;
-            case 3:
+            case WorkerActivities.MAKE_CAR_AVAILABLE:
                 carRentalOptions.makeCarAvailable(workerDataGetter.makeCarAavailable(input));
                 break;
-            case 4:
+            case WorkerActivities.MAKE_CAR_UNAVAILABLE:
                 carRentalOptions.makeCarUnavailable(workerDataGetter.makeCarUnavailable(input));
                 break;
-            case 5:
+            case WorkerActivities.CREATE_CAR:
                 carRentalOptions.createNewCar(workerDataGetter.createCar(input));
-            case 6:
+            case WorkerActivities.QUIT:
                 break;
         }
     }

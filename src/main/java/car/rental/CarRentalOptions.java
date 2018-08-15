@@ -6,14 +6,14 @@ import car.rental.model.RentingACar;
 
 import java.sql.SQLException;
 
-class CarRentalOptions {
+public class CarRentalOptions {
     private CarRentalStorage storage;
 
-    CarRentalOptions(CarRentalStorage storage) {
+    public CarRentalOptions(CarRentalStorage storage) {
         this.storage = storage;
     }
 
-    void createNewCustomer(Client client) throws SQLException {
+    public void createNewCustomer(Client client) throws SQLException {
         storage.addClient(client);
     }
 

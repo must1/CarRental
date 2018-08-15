@@ -1,4 +1,4 @@
-package car.rental.db;
+package car.rental.DB;
 
 import car.rental.CarRentalStorage;
 import car.rental.model.Car;
