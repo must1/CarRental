@@ -16,7 +16,7 @@ public class CarRentalOptions {
         this.storage = storage;
     }
 
-    public void createNewCustomer(Client client) throws SQLException {
+     void createNewCustomer(Client client) throws SQLException {
         storage.addClient(client);
     }
 
@@ -44,7 +44,7 @@ public class CarRentalOptions {
         storage.populateTableRent(client);
     }
 
-    void getAllCustomers() throws SQLException {
+    void findAllCustomers() throws SQLException {
         for (int i = 0; i < storage.getAllCustomers().size(); i++) {
             logger.info("Name: " + storage.getAllCustomers().get(i).getName()
                     + "\nSurname: " + storage.getAllCustomers().get(i).getSurname()
