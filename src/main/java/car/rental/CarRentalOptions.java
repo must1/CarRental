@@ -44,7 +44,7 @@ public class CarRentalOptions {
         storage.populateTableRent(client);
     }
 
-    void findAllCustomers() throws SQLException {
+    void getAllCustomers() throws SQLException {
         for (int i = 0; i < storage.getAllCustomers().size(); i++) {
             logger.info("Name: " + storage.getAllCustomers().get(i).getName()
                     + "\nSurname: " + storage.getAllCustomers().get(i).getSurname()

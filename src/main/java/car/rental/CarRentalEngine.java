@@ -17,13 +17,16 @@ class CarRentalEngine {
     private static final int WORKER = 2;
     private int option;
     private Scanner input = new Scanner(System.in);
-    private ClientDataGetter clientDataGetter = new ClientDataGetter();
-    private WorkerDataGetter workerDataGetter = new WorkerDataGetter();
-    private Logger logger = LoggerFactory.getLogger(CarRentalEngine.class);
+    private ClientDataGetter clientDataGetter;
+    private WorkerDataGetter workerDataGetter;
+    private Logger logger;
 
 
     CarRentalEngine(CarRentalOptions carRentalOptions) {
         this.carRentalOptions = carRentalOptions;
+        clientDataGetter = new ClientDataGetter();
+        workerDataGetter = new WorkerDataGetter();
+        logger = LoggerFactory.getLogger(CarRentalEngine.class);
     }
 
     void startCarRental() throws SQLException {
@@ -44,7 +47,7 @@ class CarRentalEngine {
     }
 
 
-    private void executeOptionsForClient(int option) throws SQLException {
+     private void executeOptionsForClient(int option) throws SQLException {
         switch (option) {
             case ClientActivities.RENT_CAR:
                 carRentalOptions.rentACar(clientDataGetter.rentACar(input));
@@ -64,10 +67,10 @@ class CarRentalEngine {
     }
 
 
-    private void executeOptionsForWorker(int option) throws SQLException {
+     private void executeOptionsForWorker(int option) throws SQLException {
         switch (option) {
             case WorkerActivities.GET_ALL_CUSTOMERS:
-                carRentalOptions.findAllCustomers();
+                carRentalOptions.getAllCustomers();
                 break;
             case WorkerActivities.GET_VIEW_OF_CARS:
                 carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
