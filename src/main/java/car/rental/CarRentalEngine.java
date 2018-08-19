@@ -8,23 +8,22 @@ import car.rental.activities.ClientActivities;
 import car.rental.activities.WorkerActivities;
 import car.rental.data.getters.ClientDataGetter;
 import car.rental.data.getters.WorkerDataGetter;
-import car.rental.DB.CarRentalSQLDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class CarRentalEngine {
-
+    private CarRentalOptions carRentalOptions;
     private static final int CUSTOMER = 1;
     private static final int WORKER = 2;
     private int option;
     private Scanner input = new Scanner(System.in);
-    private CarRentalSQLDatabase storage = new CarRentalSQLDatabase();
-    private CarRentalOptions carRentalOptions = new CarRentalOptions(storage);
     private ClientDataGetter clientDataGetter = new ClientDataGetter();
     private WorkerDataGetter workerDataGetter = new WorkerDataGetter();
     private Logger logger = LoggerFactory.getLogger(CarRentalEngine.class);
 
-    CarRentalEngine() throws SQLException {
+
+    CarRentalEngine(CarRentalOptions carRentalOptions) {
+        this.carRentalOptions = carRentalOptions;
     }
 
     void startCarRental() throws SQLException {
@@ -68,7 +67,7 @@ class CarRentalEngine {
     private void executeOptionsForWorker(int option) throws SQLException {
         switch (option) {
             case WorkerActivities.GET_ALL_CUSTOMERS:
-                carRentalOptions.getAllCustomers();
+                carRentalOptions.findAllCustomers();
                 break;
             case WorkerActivities.GET_VIEW_OF_CARS:
                 carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
