@@ -3,11 +3,7 @@ package car.rental.data.getters;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.RentingACar;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.Scanner;
 
 
@@ -57,11 +53,16 @@ class ClientDataGetterTest {
         assertEquals(12, car.getClientNumber());
     }
 
-    @Test
-    void populateTableViewCars() {
-    }
 
     @Test
     void populateTableRent() {
+        Scanner scanner = new Scanner("12");
+        Client client = clientDataGetter.populateTableRent(scanner);
+
+        assertNotNull(client);
+
+        assertEquals(12, client.getClientNumber());
     }
+
+
 }

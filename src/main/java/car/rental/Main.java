@@ -11,6 +11,5 @@ public class Main {
         CarRentalOptions carRentalOptions = new CarRentalOptions(storage);
         CarRentalEngine carRentalEngine = new CarRentalEngine(carRentalOptions);
         carRentalEngine.startCarRental();
-
     }
 }

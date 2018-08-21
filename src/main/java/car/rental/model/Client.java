@@ -10,6 +10,20 @@ public class Client {
     private String rentDate;
     private int clientNumber;
 
+    @Override
+    public String toString() {
+        return ("\nName: " + getName()
+                + "\nSurname: " + getSurname()
+                + "\nStreet: " + getStreet()
+                + "\nHouse number: " + getHouseNumber()
+                + "\nCity: " + getCity()
+                + "\nPesel Number: " + getPeselNumber()
+                + "\nRent Date: " + getRentDate()
+                + "\nClient number: " + getClientNumber())
+                + "\n-----------------";
+    }
+
+
     public String getName() {
         return name;
     }

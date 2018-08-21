@@ -179,41 +179,39 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     }
 
     @Override
-    public void populateTableRent(Client client) throws SQLException {
+    public List<RentingACar> getRentedCars(Client client) throws SQLException {
         preparedStatement = connection.prepareStatement("SELECT * FROM rentcar WHERE clientNumber=?");
         preparedStatement.setInt(1, client.getClientNumber());
         result = preparedStatement.executeQuery();
 
+        List<RentingACar> listOfRentedCars = new ArrayList<RentingACar>();
         while (result.next()) {
+            RentingACar rentingACar = new RentingACar();
+            rentingACar.setBrand(result.getString("brand"));
+            rentingACar.setSurname(result.getString("surname"));
+            rentingACar.setRentDate(result.getString("rentDate"));
+            rentingACar.setName(result.getString("name"));
 
-            String brand = result.getString("brand");
-            String name = result.getString("namee");
-            String surname = result.getString("surname");
-            String rentDate = result.getString("rentDate");
-            System.out.println("----------------------------");
-            System.out.printf("Brand:" + brand + "\nName:" + name + "\nSurname:" + surname + "\nDate of rental:" + rentDate + "\n");
-            System.out.println("----------------------------");
+            listOfRentedCars.add(rentingACar);
         }
-
+        return listOfRentedCars;
     }
 
     @Override
-    public void populateTableViewCars(Car car) throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT * FROM car WHERE dayPrice > ?");
-        preparedStatement.setDouble(1, car.getDayPrice());
+    public List<Car> getAllCars() throws SQLException {
+        preparedStatement = connection.prepareStatement("SELECT * FROM car");
         result = preparedStatement.executeQuery();
-
+        List<Car> listOfCars = new ArrayList<Car>();
         while (result.next()) {
+            Car car = new Car();
+            car.setBrand(result.getString("brand"));
+            car.setEngineCapacity(result.getString("engineCapacity"));
+            car.setProductionYear(result.getString("engineCapacity"));
+            car.setDayPrice(result.getInt("dayPrice"));
+            car.setAvailable(result.getString("available"));
 
-            String brand = result.getString("brand");
-            String productionYear = result.getString("productionYear");
-            String engineCapacity = result.getString("engineCapacity");
-            String dayPrice = result.getString("dayPrice");
-            String available = result.getString("available");
-            System.out.println("----------------------------");
-            System.out.printf("Brand:" + brand + "\nEngine Capacity:" + engineCapacity + "\nDayPrice:" + dayPrice + "\nProduction Year:" + productionYear + "\navailable:" + available + "\n");
-            System.out.println("----------------------------");
+            listOfCars.add(car);
         }
-
+        return listOfCars;
     }
 }
