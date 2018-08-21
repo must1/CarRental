@@ -17,13 +17,16 @@ class CarRentalEngine {
     private static final int WORKER = 2;
     private int option;
     private Scanner input = new Scanner(System.in);
-    private ClientDataGetter clientDataGetter = new ClientDataGetter();
-    private WorkerDataGetter workerDataGetter = new WorkerDataGetter();
-    private Logger logger = LoggerFactory.getLogger(CarRentalEngine.class);
+    private ClientDataGetter clientDataGetter;
+    private WorkerDataGetter workerDataGetter;
+    private Logger logger;
 
 
     CarRentalEngine(CarRentalOptions carRentalOptions) {
         this.carRentalOptions = carRentalOptions;
+        clientDataGetter = new ClientDataGetter();
+        workerDataGetter = new WorkerDataGetter();
+        logger = LoggerFactory.getLogger(CarRentalEngine.class);
     }
 
     void startCarRental() throws SQLException {
@@ -52,11 +55,11 @@ class CarRentalEngine {
             case ClientActivities.RETURN_CAR:
                 carRentalOptions.returnACar(clientDataGetter.returnACar(input));
                 break;
-            case ClientActivities.POPULATE_TABLE_RENTED_CARS:
-                carRentalOptions.populateTableRent(clientDataGetter.populateTableRent(input));
+            case ClientActivities.GET_RENTED_CARS:
+                carRentalOptions.getFullInfoAboutRentedCars(clientDataGetter.populateTableRent(input));
                 break;
-            case ClientActivities.POPULATE_TABLE_CARS:
-                carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
+            case ClientActivities.GET_ALL_CARS:
+                carRentalOptions.getFullInfoAboutCars();
                 break;
             case ClientActivities.QUIT:
                 break;
@@ -67,10 +70,10 @@ class CarRentalEngine {
     private void executeOptionsForWorker(int option) throws SQLException {
         switch (option) {
             case WorkerActivities.GET_ALL_CUSTOMERS:
-                carRentalOptions.findAllCustomers();
+                logger.info(carRentalOptions.getFullInfoAboutClients());
                 break;
-            case WorkerActivities.GET_VIEW_OF_CARS:
-                carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
+            case WorkerActivities.GET_ALL_CARS:
+                carRentalOptions.getFullInfoAboutCars();
                 break;
             case WorkerActivities.MAKE_CAR_AVAILABLE:
                 carRentalOptions.makeCarAvailable(workerDataGetter.makeCarAavailable(input));

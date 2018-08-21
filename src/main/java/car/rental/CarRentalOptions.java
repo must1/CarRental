@@ -3,20 +3,19 @@ package car.rental;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.RentingACar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class CarRentalOptions {
+class CarRentalOptions {
     private CarRentalStorage storage;
-    private Logger logger = LoggerFactory.getLogger(CarRentalOptions.class);
+    private StringBuilder sb;
 
-    public CarRentalOptions(CarRentalStorage storage) {
+    CarRentalOptions(CarRentalStorage storage) {
         this.storage = storage;
     }
 
-     void createNewCustomer(Client client) throws SQLException {
+    void createNewCustomer(Client client) throws SQLException {
         storage.addClient(client);
     }
 
@@ -36,27 +35,36 @@ public class CarRentalOptions {
         storage.rentACar(rentingACar);
     }
 
-    void populateTableViewCars(Car car) throws SQLException {
-        storage.populateTableViewCars(car);
+    String getFullInfoAboutCars() throws SQLException {
+        List<Car> listOfCars = storage.getAllCars();
+        sb = new StringBuilder();
+
+        for (Car carsFullInfo : listOfCars)
+            sb.append(String.valueOf(carsFullInfo));
+
+        return sb.toString();
     }
 
-    void populateTableRent(Client client) throws SQLException {
-        storage.populateTableRent(client);
+    String getFullInfoAboutRentedCars(Client client) throws SQLException {
+        List<RentingACar> listOfRentedCars = storage.getRentedCars(client);
+        sb = new StringBuilder();
+
+        for (RentingACar rentedCarsFullInfo : listOfRentedCars)
+            sb.append(String.valueOf(rentedCarsFullInfo));
+
+        return sb.toString();
     }
 
-    void findAllCustomers() throws SQLException {
-        for (int i = 0; i < storage.getAllCustomers().size(); i++) {
-            logger.info("Name: " + storage.getAllCustomers().get(i).getName()
-                    + "\nSurname: " + storage.getAllCustomers().get(i).getSurname()
-                    + "\nStreet: " + storage.getAllCustomers().get(i).getStreet()
-                    + "\nHouse number: " + storage.getAllCustomers().get(i).getHouseNumber()
-                    + "\nCity: " + storage.getAllCustomers().get(i).getCity()
-                    + "\nPesel Number: " + storage.getAllCustomers().get(i).getPeselNumber()
-                    + "\nRent Date: " + storage.getAllCustomers().get(i).getRentDate()
-                    + "\nClient number: " + storage.getAllCustomers().get(i).getClientNumber());
-            logger.info("---------------------------");
-        }
+    String getFullInfoAboutClients() throws SQLException {
+        List<Client> listOfClients = storage.getAllCustomers();
+        sb = new StringBuilder();
+
+        for (Client clientFullInfo : listOfClients)
+            sb.append(String.valueOf(clientFullInfo));
+
+        return sb.toString();
     }
+
 
     void returnACar(Car car) throws SQLException {
         storage.returnACar(car);

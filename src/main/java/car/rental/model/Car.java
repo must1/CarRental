@@ -8,6 +8,15 @@ public class Car {
     private int dayPrice;
     private int clientNumber;
 
+    @Override
+    public String toString() {
+        return ("\nBrand: " + getBrand()
+                + "\nProdction Year: " + getProductionYear()
+                + "\nEngine Capacity: " + getEngineCapacity()
+                + "\nDay Price: " + getDayPrice()
+                + "\nAvailable: " + getAvailable())
+                + "\n-----------------";
+    }
 
     public String getBrand() {
         return brand;

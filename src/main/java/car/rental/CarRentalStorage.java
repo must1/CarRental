@@ -23,7 +23,7 @@ public interface CarRentalStorage {
 
     List<Client> getAllCustomers() throws SQLException;
 
-    void populateTableRent(Client client) throws SQLException;
+    List<RentingACar> getRentedCars(Client client) throws SQLException;
 
-    void populateTableViewCars(Car car) throws SQLException;
+    List<Car> getAllCars() throws SQLException;
 }
