@@ -8,6 +8,15 @@ public class RentingACar {
     private String rentDate;
     private int clientNumber;
 
+    @Override
+    public String toString() {
+        return ("\nBrand: " + getBrand()
+                + "\nName: " + getName()
+                + "\nSurname: " + getSurname()
+                + "\nRent Date: " + getRentDate()
+                + "\n-----------------");
+    }
+
     public int getClientNumber() {
         return clientNumber;
     }

@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class ClientDataGetter {
 
     private Random rand = new Random();
-    private int maxNumberOfClients = 999;
 
     public Client createClient(Scanner input) {
         Client client = new Client();
+        int maxNumberOfClients = 999;
         client.setClientNumber(rand.nextInt(maxNumberOfClients));
 
         System.out.print("name: ");
@@ -50,15 +50,6 @@ public class ClientDataGetter {
         rentingACar.setClientNumber(input.nextInt());
 
         return rentingACar;
-    }
-
-    public Car populateTableViewCars(Scanner input) {
-        Car car = new Car();
-
-        System.out.println("Input minimum price per day. If you want to display all cars - input 0.\nMinimum price: ");
-        car.setDayPrice(input.nextInt());
-
-        return car;
     }
 
     public Client populateTableRent(Scanner input) {

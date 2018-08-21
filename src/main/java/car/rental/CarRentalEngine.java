@@ -47,7 +47,7 @@ class CarRentalEngine {
     }
 
 
-     private void executeOptionsForClient(int option) throws SQLException {
+    private void executeOptionsForClient(int option) throws SQLException {
         switch (option) {
             case ClientActivities.RENT_CAR:
                 carRentalOptions.rentACar(clientDataGetter.rentACar(input));
@@ -55,11 +55,11 @@ class CarRentalEngine {
             case ClientActivities.RETURN_CAR:
                 carRentalOptions.returnACar(clientDataGetter.returnACar(input));
                 break;
-            case ClientActivities.POPULATE_TABLE_RENTED_CARS:
-                carRentalOptions.populateTableRent(clientDataGetter.populateTableRent(input));
+            case ClientActivities.GET_RENTED_CARS:
+                carRentalOptions.getFullInfoAboutRentedCars(clientDataGetter.populateTableRent(input));
                 break;
-            case ClientActivities.POPULATE_TABLE_CARS:
-                carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
+            case ClientActivities.GET_ALL_CARS:
+                carRentalOptions.getFullInfoAboutCars();
                 break;
             case ClientActivities.QUIT:
                 break;
@@ -67,13 +67,13 @@ class CarRentalEngine {
     }
 
 
-     private void executeOptionsForWorker(int option) throws SQLException {
+    private void executeOptionsForWorker(int option) throws SQLException {
         switch (option) {
             case WorkerActivities.GET_ALL_CUSTOMERS:
-                carRentalOptions.getAllCustomers();
+                logger.info(carRentalOptions.getFullInfoAboutClients());
                 break;
-            case WorkerActivities.GET_VIEW_OF_CARS:
-                carRentalOptions.populateTableViewCars(clientDataGetter.populateTableViewCars(input));
+            case WorkerActivities.GET_ALL_CARS:
+                carRentalOptions.getFullInfoAboutCars();
                 break;
             case WorkerActivities.MAKE_CAR_AVAILABLE:
                 carRentalOptions.makeCarAvailable(workerDataGetter.makeCarAavailable(input));
