@@ -21,7 +21,7 @@ Worker can:
 - Make car unavailable
 - Insert new car
 
-With inserting new client to DataBase, he gets unique client number, which is needed to use options of his menu.
+With inserting new client to DataBase, he gets unique client number, which is needed to use in its menu.
 
 ### Technologies that has been used:
 - Java
