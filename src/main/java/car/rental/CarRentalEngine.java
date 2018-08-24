@@ -20,7 +20,6 @@ class CarRentalEngine {
     private WorkerDataGetter workerDataGetter;
     private Logger logger;
 
-
     CarRentalEngine(CarRentalOptions carRentalOptions) {
         this.carRentalOptions = carRentalOptions;
         clientDataGetter = new ClientDataGetter();

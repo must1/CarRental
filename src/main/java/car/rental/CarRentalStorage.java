@@ -23,11 +23,7 @@ public interface CarRentalStorage {
 
     List<Client> getAllCustomers() throws SQLException;
 
-<<<<<<< HEAD
-    List<RentingACar> getRentedCars(Client client) throws SQLException;
-=======
     List<CarRental> getRentedCars(Client client) throws SQLException;
->>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
 
     List<Car> getAllCars() throws SQLException;
 }
