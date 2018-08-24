@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-<<<<<<< HEAD
-import static org.junit.jupiter.api.Assertions.assertTrue;
-=======
->>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -150,21 +146,13 @@ public class CarRentalOptionsTest {
     public void getRentedCars() throws SQLException {
         client = new Client();
         client.setClientNumber(20);
-<<<<<<< HEAD
-        rentingACar = new RentingACar();
-=======
         rentingACar = new CarRental();
->>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
         rentingACar.setName("John");
         rentingACar.setRentDate("20.02");
         rentingACar.setSurname("Kowalski");
         rentingACar.setBrand("Mazda");
 
-<<<<<<< HEAD
-        List<RentingACar> listOfRentedCars = new ArrayList<RentingACar>();
-=======
         List<CarRental> listOfRentedCars = new ArrayList<CarRental>();
->>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
         listOfRentedCars.add(rentingACar);
 
         when(carRentalStorageMock.getRentedCars(client)).thenReturn(listOfRentedCars);
