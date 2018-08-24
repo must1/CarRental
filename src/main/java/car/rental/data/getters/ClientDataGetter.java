@@ -2,7 +2,7 @@ package car.rental.data.getters;
 
 import car.rental.model.Car;
 import car.rental.model.Client;
-import car.rental.model.RentingACar;
+import car.rental.model.CarRental;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -16,28 +16,22 @@ public class ClientDataGetter {
         int maxNumberOfClients = 999;
         client.setClientNumber(rand.nextInt(maxNumberOfClients));
 
-        System.out.print("name: ");
-        client.setName(input.next());
-        System.out.print("surname: ");
-        client.setSurname(input.next());
-        System.out.print("city: ");
-        client.setCity(input.next());
-        System.out.print("house number: ");
-        client.setHouseNumber(input.nextInt());
-        System.out.print("street: ");
-        client.setStreet(input.next());
-        System.out.print("pesel number: ");
-        client.setPeselNumber(input.nextLong());
-        System.out.print("rent date: ");
-        client.setRentDate(input.next());
+        client.setName(InputTakers.takeStringInput(input, "name"));
+        client.setSurname(InputTakers.takeStringInput(input, "surname"));
+        client.setCity(InputTakers.takeStringInput(input, "city"));
+        client.setStreet(InputTakers.takeStringInput(input, "street"));
+        client.setRentDate(InputTakers.takeStringInput(input, "rent date"));
+        client.setHouseNumber(InputTakers.takeIntInput(input, "house number"));
+        client.setPeselNumber(InputTakers.takeLongInput(input));
         System.out.println("Your client number is: " + client.getClientNumber());
 
         return client;
     }
 
-    public RentingACar rentACar(Scanner input) {
-        RentingACar rentingACar = new RentingACar();
+    public CarRental rentACar(Scanner input) {
+        CarRental carRental = new CarRental();
 
+<<<<<<< HEAD
         System.out.print("Brand: ");
         rentingACar.setBrand(input.next());
         System.out.print("Name: ");
@@ -50,13 +44,20 @@ public class ClientDataGetter {
         rentingACar.setClientNumber(input.nextInt());
 
         return rentingACar;
+=======
+        carRental.setBrand(InputTakers.takeStringInput(input, "brand"));
+        carRental.setName(InputTakers.takeStringInput(input, "name"));
+            carRental.setSurname(InputTakers.takeStringInput(input, "surname"));
+        carRental.setRentDate(InputTakers.takeStringInput(input, "rent date"));
+        carRental.setClientNumber(InputTakers.takeIntInput(input, "client number"));
+        return carRental;
+>>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
     }
 
     public Client populateTableRent(Scanner input) {
         Client client = new Client();
 
-        System.out.println("Input your client number: ");
-        client.setClientNumber(input.nextInt());
+        client.setClientNumber(InputTakers.takeIntInput(input, "Input your client number: "));
 
         return client;
     }
@@ -64,10 +65,8 @@ public class ClientDataGetter {
     public Car returnACar(Scanner input) {
         Car car = new Car();
 
-        System.out.println("Input brand of car that you want to return: ");
-        car.setBrand(input.next());
-        System.out.println("Input your client number, otherwise car won't be removed from our CarRentalSQLDatabase!");
-        car.setClientNumber(input.nextInt());
+        car.setBrand(InputTakers.takeStringInput(input, "Input brand of car that you want to return: "));
+        car.setClientNumber(InputTakers.takeIntInput(input, "Input your client number, otherwise car won't be removed from our CarRentalSQLDatabase!"));
 
         return car;
     }

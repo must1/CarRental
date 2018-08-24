@@ -3,7 +3,7 @@ package car.rental.DB;
 import car.rental.CarRentalStorage;
 import car.rental.model.Car;
 import car.rental.model.Client;
-import car.rental.model.RentingACar;
+import car.rental.model.CarRental;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     }
 
     @Override
-    public void rentACar(RentingACar rentingACar) throws SQLException {
+    public void rentACar(CarRental rentingACar) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
         {
@@ -179,14 +179,24 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     }
 
     @Override
+<<<<<<< HEAD
     public List<RentingACar> getRentedCars(Client client) throws SQLException {
+=======
+    public List<CarRental> getRentedCars(Client client) throws SQLException {
+>>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
         preparedStatement = connection.prepareStatement("SELECT * FROM rentcar WHERE clientNumber=?");
         preparedStatement.setInt(1, client.getClientNumber());
         result = preparedStatement.executeQuery();
 
+<<<<<<< HEAD
         List<RentingACar> listOfRentedCars = new ArrayList<RentingACar>();
         while (result.next()) {
             RentingACar rentingACar = new RentingACar();
+=======
+        List<CarRental> listOfRentedCars = new ArrayList<CarRental>();
+        while (result.next()) {
+            CarRental rentingACar = new CarRental();
+>>>>>>> da8ecb03fcd3a9a2ae74e4dbae27733708c205cc
             rentingACar.setBrand(result.getString("brand"));
             rentingACar.setSurname(result.getString("surname"));
             rentingACar.setRentDate(result.getString("rentDate"));
