@@ -1,9 +1,12 @@
 # CarRental
 
-Goal:
-It's main purpose is to practise my Java and Spring Boot skills and get more familiar with various libraries
+### Goal: 
 
-Project is console application Car Rental. It is intended for customers and employees.
+It's main purpose is to practise my Java skills and get more familiar with various libraries.
+
+### About project:
+
+It is console application Car Rental. It is intended for customers and employees.
 Customer can:
 - rent a car
 - return a car
@@ -18,9 +21,9 @@ Worker can:
 - Make car unavailable
 - Insert new car
 
-With inserting new client to DataBase, he gets unique client number, which is needed to use options of his menu.
+With inserting new client to DataBase, he gets unique client number, which is needed to use in its menu.
 
-Technologies that has been used:
+### Technologies that has been used:
 - Java
 - Maven
 - JUnit
