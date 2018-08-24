@@ -2,7 +2,7 @@ package car.rental;
 
 import car.rental.model.Car;
 import car.rental.model.Client;
-import car.rental.model.RentingACar;
+import car.rental.model.CarRental;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -31,7 +31,7 @@ class CarRentalOptions {
         storage.makeCarAvailable(car);
     }
 
-    void rentACar(RentingACar rentingACar) throws SQLException {
+    void rentACar(CarRental rentingACar) throws SQLException {
         storage.rentACar(rentingACar);
     }
 
@@ -46,10 +46,10 @@ class CarRentalOptions {
     }
 
     String getFullInfoAboutRentedCars(Client client) throws SQLException {
-        List<RentingACar> listOfRentedCars = storage.getRentedCars(client);
+        List<CarRental> listOfRentedCars = storage.getRentedCars(client);
         sb = new StringBuilder();
 
-        for (RentingACar rentedCarsFullInfo : listOfRentedCars)
+        for (CarRental rentedCarsFullInfo : listOfRentedCars)
             sb.append(String.valueOf(rentedCarsFullInfo));
 
         return sb.toString();

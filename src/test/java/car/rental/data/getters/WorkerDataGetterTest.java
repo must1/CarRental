@@ -1,8 +1,6 @@
 package car.rental.data.getters;
 
 import car.rental.model.Car;
-import car.rental.model.Client;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -17,7 +15,7 @@ class WorkerDataGetterTest {
 
     @Test
     void createCar() {
-        Scanner scanner = new Scanner("Mazda\n20\n2.0\n1999\n1");
+        Scanner scanner = new Scanner("Mazda\n20\n1999\n2.0\n1");
         Car car = workerDataGetter.createCar(scanner);
 
         assertNotNull(car);
