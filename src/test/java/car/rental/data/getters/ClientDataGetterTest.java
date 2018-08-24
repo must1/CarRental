@@ -2,7 +2,7 @@ package car.rental.data.getters;
 
 import car.rental.model.Car;
 import car.rental.model.Client;
-import car.rental.model.RentingACar;
+import car.rental.model.CarRental;
 import org.junit.jupiter.api.Test;
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ class ClientDataGetterTest {
 
     @Test
     void createClient() {
-        Scanner scanner = new Scanner("Peter\nParker\nCity\n1\nGreen\n1234\n20.02");
+        Scanner scanner = new Scanner("Peter\nParker\nCity\nGreen\n20.02\n1\n1234");
         Client client = clientDataGetter.createClient(scanner);
 
         assertNotNull(client);
@@ -22,24 +22,24 @@ class ClientDataGetterTest {
         assertEquals("Peter", client.getName());
         assertEquals("Parker", client.getSurname());
         assertEquals("City", client.getCity());
-        assertEquals(1, client.getHouseNumber());
         assertEquals("Green", client.getStreet());
-        assertEquals(1234, client.getPeselNumber());
         assertEquals("20.02", client.getRentDate());
+        assertEquals(1, client.getHouseNumber());
+        assertEquals(1234, client.getPeselNumber());
     }
 
     @Test
     void rentACar() {
         Scanner scanner = new Scanner("Mazda\nPeter\nParker\n20.02\n1234");
-        RentingACar rentingACar = clientDataGetter.rentACar(scanner);
+        CarRental carRental = clientDataGetter.rentACar(scanner);
 
-        assertNotNull(rentingACar);
+        assertNotNull(carRental);
 
-        assertEquals("Mazda", rentingACar.getBrand());
-        assertEquals("Peter", rentingACar.getName());
-        assertEquals("Parker", rentingACar.getSurname());
-        assertEquals("20.02", rentingACar.getRentDate());
-        assertEquals(1234, rentingACar.getClientNumber());
+        assertEquals("Mazda", carRental.getBrand());
+        assertEquals("Peter", carRental.getName());
+        assertEquals("Parker", carRental.getSurname());
+        assertEquals("20.02", carRental.getRentDate());
+        assertEquals(1234, carRental.getClientNumber());
     }
 
     @Test

@@ -2,7 +2,7 @@ package car.rental;
 
 import car.rental.model.Car;
 import car.rental.model.Client;
-import car.rental.model.RentingACar;
+import car.rental.model.CarRental;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +26,7 @@ public class CarRentalOptionsTest {
     private CarRentalOptions carRentalOptions;
     private Client client;
     private Car car;
-    private RentingACar rentingACar;
+    private CarRental rentingACar;
 
     @Before
     public void setup() {
@@ -79,7 +78,7 @@ public class CarRentalOptionsTest {
 
     @Test
     public void rentACar() throws SQLException {
-        rentingACar = new RentingACar();
+        rentingACar = new CarRental();
         carRentalOptions.rentACar(rentingACar);
 
         verify(carRentalStorageMock).rentACar(rentingACar);
@@ -147,13 +146,13 @@ public class CarRentalOptionsTest {
     public void getRentedCars() throws SQLException {
         client = new Client();
         client.setClientNumber(20);
-        rentingACar = new RentingACar();
+        rentingACar = new CarRental();
         rentingACar.setName("John");
         rentingACar.setRentDate("20.02");
         rentingACar.setSurname("Kowalski");
         rentingACar.setBrand("Mazda");
 
-        List<RentingACar> listOfRentedCars = new ArrayList<RentingACar>();
+        List<CarRental> listOfRentedCars = new ArrayList<CarRental>();
         listOfRentedCars.add(rentingACar);
 
         when(carRentalStorageMock.getRentedCars(client)).thenReturn(listOfRentedCars);

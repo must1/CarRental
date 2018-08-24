@@ -9,16 +9,11 @@ public class WorkerDataGetter {
     public Car createCar(Scanner input) {
         Car car = new Car();
 
-        System.out.print("Brand: ");
-        car.setBrand(input.next());
-        System.out.print("Day price: ");
-        car.setDayPrice(input.nextInt());
-        System.out.print("Engine Capcity: ");
-        car.setEngineCapacity(input.next());
-        System.out.print("Production year: ");
-        car.setProductionYear(input.next());
-        System.out.print("available: ");
-        car.setAvailable(input.next());
+        car.setBrand(InputTakers.takeStringInput(input, "Brand"));
+        car.setDayPrice(InputTakers.takeIntInput(input, "Day Price"));
+        car.setProductionYear(InputTakers.takeStringInput(input, "production year"));
+        car.setEngineCapacity(InputTakers.takeStringInput(input, "engine capacity"));
+        car.setAvailable(InputTakers.takeStringInput(input, "available"));
 
         return car;
     }
@@ -26,10 +21,8 @@ public class WorkerDataGetter {
     public Car makeCarUnavailable(Scanner input) {
         Car car = new Car();
 
-        System.out.print("Brand: ");
-        car.setBrand(input.next());
-        System.out.print("production year: ");
-        car.setProductionYear(input.next());
+        car.setBrand(InputTakers.takeStringInput(input, "Brand"));
+        car.setProductionYear(InputTakers.takeStringInput(input, "production year"));
 
         return car;
     }
@@ -37,10 +30,8 @@ public class WorkerDataGetter {
     public Car makeCarAavailable(Scanner input) {
         Car car = new Car();
 
-        System.out.print("Brand: ");
-        car.setBrand(input.next());
-        System.out.print("Production year : ");
-        car.setProductionYear(input.next());
+        car.setBrand(InputTakers.takeStringInput(input, "brand"));
+        car.setProductionYear(InputTakers.takeStringInput(input, "production year"));
 
         return car;
     }

@@ -1,7 +1,6 @@
 package car.rental;
 
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import car.rental.activities.ClientActivities;
@@ -32,17 +31,13 @@ class CarRentalEngine {
     void startCarRental() throws SQLException {
         logger.info("Who are you?\n1. Customer\n2. Worker");
         option = input.nextInt();
-        try {
-            switch (option) {
-                case CUSTOMER:
-                    executeClientCase();
-                    break;
-                case WORKER:
-                    executeWorkerCase();
-                    break;
-            }
-        } catch (InputMismatchException e) {
-            logger.error("Your input is wrong!");
+        switch (option) {
+            case CUSTOMER:
+                executeClientCase();
+                break;
+            case WORKER:
+                executeWorkerCase();
+                break;
         }
     }
 
