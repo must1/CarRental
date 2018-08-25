@@ -4,6 +4,8 @@ import car.rental.CarRentalStorage;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.CarRental;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,10 +17,12 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     private Statement statement;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private Logger logger;
 
     public CarRentalSQLDatabase() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rentalcar?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(), "root", "9234355q");
         statement = connection.createStatement();
+        logger = LoggerFactory.getLogger(CarRentalSQLDatabase.class);
     }
 
     @Override
@@ -56,11 +60,11 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     public void rentACar(CarRental rentingACar) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
-        {
-            preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE available='1' AND brand=?");
-            preparedStatement.setString(1, rentingACar.getBrand());
-            result = preparedStatement.executeQuery();
-        }
+
+        preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE available='1' AND brand=?");
+        preparedStatement.setString(1, rentingACar.getBrand());
+        result = preparedStatement.executeQuery();
+
         while (result.next()) {
             count = result.getInt(1);
         }
@@ -79,9 +83,9 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
             preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand= ? ");
             preparedStatement.setString(1, rentingACar.getBrand());
             preparedStatement.executeUpdate();
-            System.out.println("Car was rented!");
+            logger.info("Car was rented!");
         } else {
-            System.out.println("There is no " + rentingACar.getBrand() + " in our car or all types of this car are rented!");
+            logger.info("There is no " + rentingACar.getBrand() + " in our car or all types of this car are rented!");
         }
 
     }
@@ -103,12 +107,12 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     public void makeCarUnavailable(Car car) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
-        {
-            preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE brand=? AND productionYear=? ");
-            preparedStatement.setString(1, car.getBrand());
-            preparedStatement.setString(2, car.getProductionYear());
-            result = preparedStatement.executeQuery();
-        }
+
+        preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE brand=? AND productionYear=? ");
+        preparedStatement.setString(1, car.getBrand());
+        preparedStatement.setString(2, car.getProductionYear());
+        result = preparedStatement.executeQuery();
+
         while (result.next()) {
             count = result.getInt(1);
         }
@@ -122,7 +126,7 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
             preparedStatement.executeUpdate();
             System.out.println(car.getBrand() + " was made unavailable");
         } else {
-            System.out.println("No " + car.getBrand() + " in system!");
+            logger.info("No " + car.getBrand() + " in system!");
         }
 
     }
@@ -131,12 +135,12 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     public void makeCarAvailable(Car car) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
-        {
-            preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE brand=? AND productionYear=? ");
-            preparedStatement.setString(1, car.getBrand());
-            preparedStatement.setString(2, car.getProductionYear());
-            result = preparedStatement.executeQuery();
-        }
+
+        preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE brand=? AND productionYear=? ");
+        preparedStatement.setString(1, car.getBrand());
+        preparedStatement.setString(2, car.getProductionYear());
+        result = preparedStatement.executeQuery();
+
         while (result.next()) {
             count = result.getInt(1);
         }
@@ -150,7 +154,7 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
             preparedStatement.executeUpdate();
             System.out.println(car.getBrand() + " was made unavailable");
         } else {
-            System.out.println("No " + car.getBrand() + " in system!");
+            logger.info("No " + car.getBrand() + " in system!");
         }
     }
 
