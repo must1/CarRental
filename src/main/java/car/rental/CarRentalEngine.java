@@ -64,7 +64,7 @@ class CarRentalEngine {
                 carRentalOptions.getFullInfoAboutRentedCars(clientDataGetter.populateTableRent(input));
                 break;
             case ClientActivities.GET_ALL_CARS:
-                carRentalOptions.getFullInfoAboutCars();
+                logger.info(carRentalOptions.getFullInfoAboutCars());
                 break;
             case ClientActivities.QUIT:
                 break;
@@ -78,7 +78,7 @@ class CarRentalEngine {
                 logger.info(carRentalOptions.getFullInfoAboutClients());
                 break;
             case WorkerActivities.GET_ALL_CARS:
-                carRentalOptions.getFullInfoAboutCars();
+                logger.info(carRentalOptions.getFullInfoAboutCars());
                 break;
             case WorkerActivities.MAKE_CAR_AVAILABLE:
                 car = workerDataGetter.makeCarAavailable(input);
