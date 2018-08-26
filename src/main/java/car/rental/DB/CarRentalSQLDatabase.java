@@ -1,6 +1,5 @@
 package car.rental.DB;
 
-import car.rental.CarRentalStorage;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.CarRental;
@@ -26,7 +25,9 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
     }
 
     @Override
-    public void addClient(Client client) throws SQLException {
+    public boolean addClient(Client client) throws SQLException {
+        if (client == null)
+            return false;
         preparedStatement = connection.prepareStatement("insert into client" + "(namee, surname, street,houseNumber,city,peselNumber,rentDate, clientNumber)" + "values(?,?,?,?,?,?,?,?)");
 
         preparedStatement.setString(1, client.getName());
@@ -39,11 +40,16 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
         preparedStatement.setInt(8, client.getClientNumber());
 
         preparedStatement.executeUpdate();
+
+        return true;
     }
 
 
     @Override
-    public void addNewCar(Car car) throws SQLException {
+    public boolean addNewCar(Car car) throws SQLException {
+        if (car == null)
+            return false;
+
         preparedStatement = connection.prepareStatement("insert into car" + "(brand, productionYear, engineCapacity,dayPrice,available)" + "values(?,?,?,?,?)");
 
         preparedStatement.setString(1, car.getBrand());
@@ -54,10 +60,11 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
 
         preparedStatement.executeUpdate();
 
+        return true;
     }
 
     @Override
-    public void rentACar(CarRental rentingACar) throws SQLException {
+    public boolean rentACar(CarRental rentingACar) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
 
@@ -71,27 +78,29 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
         if (count < 1)
             isAvailable = false;
 
-        if (isAvailable) {
-            preparedStatement = connection.prepareStatement("insert into rentcar" + "(brand,namee,surname,rentDate,clientNumber)" + "values(?,?,?,?,?)");
-            preparedStatement.setString(1, rentingACar.getBrand());
-            preparedStatement.setString(2, rentingACar.getName());
-            preparedStatement.setString(3, rentingACar.getSurname());
-            preparedStatement.setString(4, rentingACar.getRentDate());
-            preparedStatement.setInt(5, rentingACar.getClientNumber());
-            preparedStatement.executeUpdate();
+        if (!isAvailable)
+            return false;
 
-            preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand= ? ");
-            preparedStatement.setString(1, rentingACar.getBrand());
-            preparedStatement.executeUpdate();
-            logger.info("Car was rented!");
-        } else {
-            logger.info("There is no " + rentingACar.getBrand() + " in our car or all types of this car are rented!");
-        }
+        preparedStatement = connection.prepareStatement("insert into rentcar" + "(brand,namee,surname,rentDate,clientNumber)" + "values(?,?,?,?,?)");
+        preparedStatement.setString(1, rentingACar.getBrand());
+        preparedStatement.setString(2, rentingACar.getName());
+        preparedStatement.setString(3, rentingACar.getSurname());
+        preparedStatement.setString(4, rentingACar.getRentDate());
+        preparedStatement.setInt(5, rentingACar.getClientNumber());
+        preparedStatement.executeUpdate();
 
+        preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand= ? ");
+        preparedStatement.setString(1, rentingACar.getBrand());
+        preparedStatement.executeUpdate();
+        logger.info("Car was rented!");
+
+        return true;
     }
 
     @Override
-    public void returnACar(Car car) throws SQLException {
+    public boolean returnACar(Car car) throws SQLException {
+        if (car == null)
+            return false;
         preparedStatement = connection.prepareStatement("DELETE from rentcar WHERE brand=? AND clientNumber=?");
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.setInt(2, car.getClientNumber());
@@ -100,11 +109,11 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
         preparedStatement = connection.prepareStatement("update car " + " set available='1'" + " where brand=?");
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.executeUpdate();
-
+        return true;
     }
 
     @Override
-    public void makeCarUnavailable(Car car) throws SQLException {
+    public boolean makeCarUnavailable(Car car) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
 
@@ -119,20 +128,20 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
         if (count < 1)
             isAvailable = false;
 
-        if (isAvailable) {
-            preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand=? AND productionYear=?");
-            preparedStatement.setString(1, car.getBrand());
-            preparedStatement.setString(2, car.getProductionYear());
-            preparedStatement.executeUpdate();
-            System.out.println(car.getBrand() + " was made unavailable");
-        } else {
-            logger.info("No " + car.getBrand() + " in system!");
-        }
+        if (!isAvailable)
+            return false;
 
+        preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand=? AND productionYear=?");
+        preparedStatement.setString(1, car.getBrand());
+        preparedStatement.setString(2, car.getProductionYear());
+        preparedStatement.executeUpdate();
+        System.out.println(car.getBrand() + " was made unavailable");
+
+        return true;
     }
 
     @Override
-    public void makeCarAvailable(Car car) throws SQLException {
+    public boolean makeCarAvailable(Car car) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
 
@@ -147,15 +156,15 @@ public class CarRentalSQLDatabase implements CarRentalStorage {
         if (count < 1)
             isAvailable = false;
 
-        if (isAvailable) {
-            preparedStatement = connection.prepareStatement("update car " + " set available='1'" + " where brand=? AND productionYear=?");
-            preparedStatement.setString(1, car.getBrand());
-            preparedStatement.setString(2, car.getProductionYear());
-            preparedStatement.executeUpdate();
-            System.out.println(car.getBrand() + " was made unavailable");
-        } else {
-            logger.info("No " + car.getBrand() + " in system!");
-        }
+        if (!isAvailable)
+            return false;
+
+        preparedStatement = connection.prepareStatement("update car " + " set available='1'" + " where brand=? AND productionYear=?");
+        preparedStatement.setString(1, car.getBrand());
+        preparedStatement.setString(2, car.getProductionYear());
+        preparedStatement.executeUpdate();
+
+        return true;
     }
 
     @Override

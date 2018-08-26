@@ -1,5 +1,6 @@
 package car.rental;
 
+import car.rental.DB.CarRentalStorage;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.CarRental;

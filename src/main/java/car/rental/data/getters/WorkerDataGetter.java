@@ -9,11 +9,11 @@ public class WorkerDataGetter {
     public Car createCar(Scanner input) {
         Car car = new Car();
 
-        car.setBrand(InputTakers.takeStringInput(input, "Brand"));
-        car.setDayPrice(InputTakers.takeIntInput(input, "Day Price"));
-        car.setProductionYear(InputTakers.takeStringInput(input, "production year"));
-        car.setEngineCapacity(InputTakers.takeStringInput(input, "engine capacity"));
-        car.setAvailable(InputTakers.takeStringInput(input, "available"));
+        car.setBrand(InputTaker.takeStringInput(input, "Brand"));
+        car.setDayPrice(InputTaker.takeIntInput(input, "Day Price"));
+        car.setProductionYear(InputTaker.takeStringInput(input, "production year"));
+        car.setEngineCapacity(InputTaker.takeStringInput(input, "engine capacity"));
+        car.setAvailable(InputTaker.takeStringInput(input, "available"));
 
         return car;
     }
@@ -21,8 +21,8 @@ public class WorkerDataGetter {
     public Car makeCarUnavailable(Scanner input) {
         Car car = new Car();
 
-        car.setBrand(InputTakers.takeStringInput(input, "Brand"));
-        car.setProductionYear(InputTakers.takeStringInput(input, "production year"));
+        car.setBrand(InputTaker.takeStringInput(input, "Brand"));
+        car.setProductionYear(InputTaker.takeStringInput(input, "production year"));
 
         return car;
     }
@@ -30,8 +30,8 @@ public class WorkerDataGetter {
     public Car makeCarAavailable(Scanner input) {
         Car car = new Car();
 
-        car.setBrand(InputTakers.takeStringInput(input, "brand"));
-        car.setProductionYear(InputTakers.takeStringInput(input, "production year"));
+        car.setBrand(InputTaker.takeStringInput(input, "brand"));
+        car.setProductionYear(InputTaker.takeStringInput(input, "production year"));
 
         return car;
     }
