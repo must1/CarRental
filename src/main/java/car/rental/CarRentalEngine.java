@@ -1,6 +1,7 @@
 package car.rental;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import car.rental.activities.ClientActivities;
@@ -23,9 +24,7 @@ class CarRentalEngine {
     private ClientDataGetter clientDataGetter = new ClientDataGetter();
     private WorkerDataGetter workerDataGetter = new WorkerDataGetter();
     private Logger logger;
-    private Client client;
     private Car car;
-    private CarRental carRental;
     private DataBaseCommunication dataBaseCommunication;
 
     CarRentalEngine(CarRentalOptions carRentalOptions) throws SQLException {
@@ -37,13 +36,17 @@ class CarRentalEngine {
     void startCarRental() throws SQLException {
         logger.info("Who are you?\n1. Customer\n2. Worker");
         option = input.nextInt();
-        switch (option) {
-            case CUSTOMER:
-                executeClientCase();
-                break;
-            case WORKER:
-                executeWorkerCase();
-                break;
+        try {
+            switch (option) {
+                case CUSTOMER:
+                    executeClientCase();
+                    break;
+                case WORKER:
+                    executeWorkerCase();
+                    break;
+            }
+        } catch (InputMismatchException e) {
+            logger.error("Try again");
         }
     }
 
@@ -51,7 +54,7 @@ class CarRentalEngine {
     private void executeOptionsForClient(int option) throws SQLException {
         switch (option) {
             case ClientActivities.RENT_CAR:
-                carRental = clientDataGetter.rentACar(input);
+                CarRental carRental = clientDataGetter.rentACar(input);
                 carRentalOptions.rentACar(carRental);
                 dataBaseCommunication.executeCarRentalMessage(carRental);
                 break;
@@ -103,7 +106,7 @@ class CarRentalEngine {
     private void executeClientCase() throws SQLException {
         logger.info("1. Have you inputted your data before?\nN/Y: ");
         if (input.next().toUpperCase().equals("N")) {
-            client = clientDataGetter.createClient(input);
+            Client client = clientDataGetter.createClient(input);
             carRentalOptions.createNewCustomer(client);
             logger.info("Now you have your unique number clinet, use it where it is required!");
         } else {
