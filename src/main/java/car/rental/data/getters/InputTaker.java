@@ -1,37 +1,70 @@
 package car.rental.data.getters;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class InputTaker {
-
     static String takeStringInput(Scanner input, String label) {
         System.out.println(label + ": ");
         return input.next();
+        /*System.out.println(label + ": ");
+        String text = null;
+        boolean isInvalid = true;
+        do {
+            if (input.hasNext()) {
+                text = input.next();
+                isInvalid = false;
+            } else {
+                System.out.println("You need to write something.");
+            }
+        }
+        while (isInvalid);
+
+        return text;*/
     }
 
     static int takeIntInput(Scanner input, String label) {
-        while (true) {
+        boolean isInvalid = true;
+        int integerInput = 0;
+        while (isInvalid) {
             try {
                 System.out.println(label + ": ");
-                return input.nextInt();
+                integerInput = input.nextInt();
+                if (integerInput > 0) {
+                    isInvalid = false;
+                } else {
+                    System.out.println("Negative number");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Try again, bad input");
                 input.next();
             }
         }
+        return integerInput;
     }
 
     static long takeLongInput(Scanner input) {
-        while (true) {
+        boolean isInvalid = true;
+        int integerInput = 0;
+        while (isInvalid) {
             try {
-                System.out.println("pesel" + ": ");
-                return input.nextLong();
+                System.out.println("pesel: ");
+                integerInput = input.nextInt();
+                if (integerInput > 0) {
+                    isInvalid = false;
+                } else {
+                    System.out.println("Negative number");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Try again, bad input");
                 input.next();
             }
         }
+        return integerInput;
     }
 }
+
 

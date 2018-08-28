@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 class CarRentalEngine {
     private CarRentalOptions carRentalOptions;
-    private static final int CUSTOMER = 1;
+    private static final int CLIENT = 1;
     private static final int WORKER = 2;
     private int option;
     private Scanner input = new Scanner(System.in);
@@ -38,7 +38,7 @@ class CarRentalEngine {
         option = input.nextInt();
         try {
             switch (option) {
-                case CUSTOMER:
+                case CLIENT:
                     executeClientCase();
                     break;
                 case WORKER:
@@ -107,12 +107,17 @@ class CarRentalEngine {
         logger.info("1. Have you inputted your data before?\nN/Y: ");
         if (input.next().toUpperCase().equals("N")) {
             Client client = clientDataGetter.createClient(input);
-            carRentalOptions.createNewCustomer(client);
+            carRentalOptions.createNewClient(client);
+            dataBaseCommunication.executeAddClientMessage(client);
             logger.info("Now you have your unique number clinet, use it where it is required!");
         } else {
             do {
                 logger.info("What do you want to do?");
-                logger.info("1. Rent a car\n2. Return a car\n3. Populate rented cars\n4. Populate cars\n5. Quit");
+                logger.info("1. Rent a car");
+                logger.info("2. Return a car");
+                logger.info("3. Populate rented cars");
+                logger.info("4. Populate cars");
+                logger.info("5. Quit");
                 option = input.nextInt();
                 executeOptionsForClient(option);
             }
@@ -123,7 +128,12 @@ class CarRentalEngine {
     private void executeWorkerCase() throws SQLException {
         do {
             logger.info("What do you want to do?");
-            logger.info("1. Populate clients\n2. Populate cars\n3. Make car available\n4. Make car unavailable\n5. Insert new car\n6. Quit");
+            logger.info("1. Populate clients");
+            logger.info("2. Populate cars");
+            logger.info("3. Make car available");
+            logger.info("4. Make car unavailable");
+            logger.info("5. Insert new car");
+            logger.info("6. Quit");
             option = input.nextInt();
             executeOptionsForWorker(option);
         }

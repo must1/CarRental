@@ -1,6 +1,8 @@
 package car.rental;
 
-import car.rental.DB.CarRentalStorage;
+import car.rental.DB.MySQLCarStorage;
+import car.rental.DB.MySQLClientStorage;
+import car.rental.DB.MySQLRentalStorage;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.CarRental;
@@ -9,66 +11,70 @@ import java.sql.SQLException;
 import java.util.List;
 
 class CarRentalOptions {
-    private CarRentalStorage storage;
+    private MySQLClientStorage mySQLClientStorage;
+    private MySQLCarStorage mySQLCarStorage;
+    private MySQLRentalStorage mySQLRentalStorage;
     private StringBuilder sb;
 
-    CarRentalOptions(CarRentalStorage storage) {
-        this.storage = storage;
+    CarRentalOptions(MySQLClientStorage mySQLClientStorage, MySQLCarStorage mySQLCarStorage, MySQLRentalStorage mySQLRentalStorage) {
+        this.mySQLCarStorage = mySQLCarStorage;
+        this.mySQLClientStorage = mySQLClientStorage;
+        this.mySQLRentalStorage = mySQLRentalStorage;
     }
 
-    void createNewCustomer(Client client) throws SQLException {
-        storage.addClient(client);
+
+    void createNewClient(Client client) throws SQLException {
+        mySQLClientStorage.addClient(client);
     }
 
     void createNewCar(Car car) throws SQLException {
-        storage.addNewCar(car);
+        mySQLCarStorage.addNewCar(car);
     }
 
     void makeCarUnavailable(Car car) throws SQLException {
-        storage.makeCarUnavailable(car);
+        mySQLCarStorage.makeCarUnavailable(car);
     }
 
     void makeCarAvailable(Car car) throws SQLException {
-        storage.makeCarAvailable(car);
+        mySQLCarStorage.makeCarAvailable(car);
     }
 
     void rentACar(CarRental rentingACar) throws SQLException {
-        storage.rentACar(rentingACar);
+        mySQLRentalStorage.rentACar(rentingACar);
     }
 
     String getFullInfoAboutCars() throws SQLException {
-        List<Car> listOfCars = storage.getAllCars();
+        List<Car> cars = mySQLCarStorage.getAllCars();
         sb = new StringBuilder();
 
-        for (Car carsFullInfo : listOfCars)
+        for (Car carsFullInfo : cars)
             sb.append(String.valueOf(carsFullInfo));
 
         return sb.toString();
     }
 
     String getFullInfoAboutRentedCars(Client client) throws SQLException {
-        List<CarRental> listOfRentedCars = storage.getRentedCars(client);
+        List<CarRental> rentedCars = mySQLRentalStorage.getClientRentals(client);
         sb = new StringBuilder();
 
-        for (CarRental rentedCarsFullInfo : listOfRentedCars)
+        for (CarRental rentedCarsFullInfo : rentedCars)
             sb.append(String.valueOf(rentedCarsFullInfo));
 
         return sb.toString();
     }
 
     String getFullInfoAboutClients() throws SQLException {
-        List<Client> listOfClients = storage.getAllCustomers();
+        List<Client> clients = mySQLClientStorage.getAllClients();
         sb = new StringBuilder();
 
-        for (Client clientFullInfo : listOfClients)
+        for (Client clientFullInfo : clients)
             sb.append(String.valueOf(clientFullInfo));
 
         return sb.toString();
     }
 
-
     void returnACar(Car car) throws SQLException {
-        storage.returnACar(car);
+        mySQLRentalStorage.returnACar(car);
     }
 
 }

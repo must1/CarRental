@@ -32,8 +32,8 @@ class InputTakerTest {
     }
 
     @Test
-    void takeIntInput_withOneInvalidIntegerInput_andTwoValidIntegerInputs_returnsFirstValidInputAsInt() {
-        Scanner scanner = new Scanner(String.format("Test%n42%n43%n"));
+    void shouldReturnFirstValidIntegerInput() {
+        Scanner scanner = new Scanner(String.format("Test%n-33%n42%n43%n"));
 
         int actual = InputTaker.takeIntInput(scanner, "test");
 
@@ -48,10 +48,9 @@ class InputTakerTest {
 
         assertEquals(expected, actual);
     }
-
     @Test
-    void takeIntInput_withOneInvalidLongInput_andTwoValidLongInputs_returnsFirstValidInputAsInt() {
-        Scanner scanner = new Scanner(String.format("Test%n1111111%n2222222%n"));
+    void shouldReturnFirstValidLongInput() {
+        Scanner scanner = new Scanner(String.format("Test%n-33333%n1111111%n2222222%n"));
         long expected = 1111111;
         long actual = InputTaker.takeLongInput(scanner);
 
