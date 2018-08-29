@@ -1,6 +1,5 @@
-package car.rental.DB;
+package car.rental.repository;
 
-import car.rental.DB.CarRentalInterfaces.ClientStorageInterface;
 import car.rental.model.Client;
 
 import java.sql.*;
@@ -10,11 +9,9 @@ import java.util.TimeZone;
 
 public class MySQLClientStorage implements ClientStorageInterface {
     private Connection connection;
-    private Statement statement;
 
     public MySQLClientStorage() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rentalcar?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(), "root", "9234355q");
-        statement = connection.createStatement();
     }
 
     @Override
@@ -40,7 +37,7 @@ public class MySQLClientStorage implements ClientStorageInterface {
     @Override
     public List<Client> getAllClients() throws SQLException {
         List<Client> clients = new ArrayList<Client>();
-
+        Statement statement = connection.createStatement();
         String sql = "SELECT * FROM `client`";
         ResultSet result = statement.executeQuery(sql);
 

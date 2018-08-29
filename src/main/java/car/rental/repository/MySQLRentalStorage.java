@@ -1,6 +1,5 @@
-package car.rental.DB;
+package car.rental.repository;
 
-import car.rental.DB.CarRentalInterfaces.RentalStorageInterface;
 import car.rental.model.Car;
 import car.rental.model.CarRental;
 import car.rental.model.Client;
@@ -13,8 +12,6 @@ import java.util.TimeZone;
 public class MySQLRentalStorage implements RentalStorageInterface {
 
     private Connection connection;
-    private PreparedStatement preparedStatement;
-    private ResultSet result;
 
     public MySQLRentalStorage() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rentalcar?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(), "root", "9234355q");
@@ -22,9 +19,9 @@ public class MySQLRentalStorage implements RentalStorageInterface {
 
     @Override
     public List<CarRental> getClientRentals(Client client) throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT * FROM rentcar WHERE clientNumber=?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM rentcar WHERE clientNumber=?");
         preparedStatement.setInt(1, client.getClientNumber());
-        result = preparedStatement.executeQuery();
+        ResultSet result = preparedStatement.executeQuery();
 
         List<CarRental> rentedCars = new ArrayList<CarRental>();
         while (result.next()) {
@@ -44,9 +41,9 @@ public class MySQLRentalStorage implements RentalStorageInterface {
         int count = 0;
         boolean isAvailable = true;
 
-        preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE available='1' AND brand=?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE available='1' AND brand=?");
         preparedStatement.setString(1, rentingACar.getBrand());
-        result = preparedStatement.executeQuery();
+        ResultSet result = preparedStatement.executeQuery();
 
         while (result.next()) {
             count = result.getInt(1);
@@ -77,7 +74,7 @@ public class MySQLRentalStorage implements RentalStorageInterface {
         if (car == null)
             return false;
 
-        preparedStatement = connection.prepareStatement("DELETE from rentcar WHERE brand=? AND clientNumber=?");
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE from rentcar WHERE brand=? AND clientNumber=?");
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.setInt(2, car.getClientNumber());
         preparedStatement.executeUpdate();
@@ -87,5 +84,4 @@ public class MySQLRentalStorage implements RentalStorageInterface {
         preparedStatement.executeUpdate();
         return true;
     }
-
 }

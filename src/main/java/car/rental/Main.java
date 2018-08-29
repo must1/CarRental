@@ -1,8 +1,8 @@
 package car.rental;
 
-import car.rental.DB.MySQLCarStorage;
-import car.rental.DB.MySQLClientStorage;
-import car.rental.DB.MySQLRentalStorage;
+import car.rental.repository.MySQLCarStorage;
+import car.rental.repository.MySQLClientStorage;
+import car.rental.repository.MySQLRentalStorage;
 
 import java.sql.SQLException;
 

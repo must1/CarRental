@@ -1,4 +1,4 @@
-package car.rental.DB.CarRentalInterfaces;
+package car.rental.repository;
 
 import car.rental.model.Car;
 import car.rental.model.CarRental;

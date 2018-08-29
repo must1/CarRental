@@ -11,6 +11,7 @@ import car.rental.data.getters.WorkerDataGetter;
 import car.rental.model.Car;
 import car.rental.model.CarRental;
 import car.rental.model.Client;
+import car.rental.repository.*;
 import car.rental.user.communication.DataBaseCommunication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,10 @@ class CarRentalEngine {
     CarRentalEngine(CarRentalOptions carRentalOptions) throws SQLException {
         this.carRentalOptions = carRentalOptions;
         logger = LoggerFactory.getLogger(CarRentalEngine.class);
-        dataBaseCommunication = new DataBaseCommunication();
+        ClientStorageInterface mySQLClientStorage = new MySQLClientStorage();
+        CarStorageInterface mySQLCarStorage = new MySQLCarStorage();
+        RentalStorageInterface mySQLRentalStorage = new MySQLRentalStorage();
+        dataBaseCommunication = new DataBaseCommunication(mySQLClientStorage, mySQLCarStorage, mySQLRentalStorage);
     }
 
     void startCarRental() throws SQLException {
@@ -104,7 +108,7 @@ class CarRentalEngine {
 
 
     private void executeClientCase() throws SQLException {
-        logger.info("1. Have you inputted your data before?\nN/Y: ");
+        logger.info("1. Have you inputted your perdata before?\nN/Y: ");
         if (input.next().toUpperCase().equals("N")) {
             Client client = clientDataGetter.createClient(input);
             carRentalOptions.createNewClient(client);

@@ -1,6 +1,5 @@
-package car.rental.DB;
+package car.rental.repository;
 
-import car.rental.DB.CarRentalInterfaces.CarStorageInterface;
 import car.rental.model.Car;
 
 import java.sql.*;
@@ -10,8 +9,6 @@ import java.util.TimeZone;
 
 public class MySQLCarStorage implements CarStorageInterface {
     private Connection connection;
-    private PreparedStatement preparedStatement;
-    private ResultSet result;
 
     public MySQLCarStorage() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rentalcar?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(), "root", "9234355q");
@@ -20,8 +17,8 @@ public class MySQLCarStorage implements CarStorageInterface {
 
     @Override
     public List<Car> getAllCars() throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT * FROM car");
-        result = preparedStatement.executeQuery();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM car");
+        ResultSet result = preparedStatement.executeQuery();
         List<Car> cars = new ArrayList<Car>();
         while (result.next()) {
             Car car = new Car();
@@ -41,7 +38,7 @@ public class MySQLCarStorage implements CarStorageInterface {
         if (car == null)
             return false;
 
-        preparedStatement = connection.prepareStatement("insert into car" + "(brand, productionYear, engineCapacity,dayPrice,available)" + "values(?,?,?,?,?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into car" + "(brand, productionYear, engineCapacity,dayPrice,available)" + "values(?,?,?,?,?)");
 
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.setString(2, car.getProductionYear());
@@ -57,10 +54,10 @@ public class MySQLCarStorage implements CarStorageInterface {
     private boolean doesCarExist(Car car) throws SQLException {
         int count = 0;
 
-        preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE brand=? AND productionYear=? ");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(0) FROM car WHERE brand=? AND productionYear=? ");
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.setString(2, car.getProductionYear());
-        result = preparedStatement.executeQuery();
+        ResultSet result = preparedStatement.executeQuery();
 
         while (result.next()) {
             count = result.getInt(1);
@@ -75,7 +72,7 @@ public class MySQLCarStorage implements CarStorageInterface {
         if (doesCarExist(car))
             return false;
 
-        preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand=? AND productionYear=?");
+        PreparedStatement preparedStatement = connection.prepareStatement("update car " + " set available='0'" + " where brand=? AND productionYear=?");
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.setString(2, car.getProductionYear());
         preparedStatement.executeUpdate();
@@ -88,7 +85,7 @@ public class MySQLCarStorage implements CarStorageInterface {
         if (doesCarExist(car))
             return false;
 
-        preparedStatement = connection.prepareStatement("update car " + " set available='1'" + " where brand=? AND productionYear=?");
+        PreparedStatement preparedStatement = connection.prepareStatement("update car " + " set available='1'" + " where brand=? AND productionYear=?");
         preparedStatement.setString(1, car.getBrand());
         preparedStatement.setString(2, car.getProductionYear());
         preparedStatement.executeUpdate();

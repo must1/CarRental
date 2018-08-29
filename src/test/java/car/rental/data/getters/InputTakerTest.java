@@ -19,7 +19,6 @@ class InputTakerTest {
         String actual = "Test";
 
         assertEquals(expected, actual);
-
     }
 
     @Test
@@ -56,4 +55,6 @@ class InputTakerTest {
 
         assertEquals(expected, actual);
     }
+
+
 }

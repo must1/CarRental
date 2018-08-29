@@ -10,20 +10,6 @@ class InputTaker {
     static String takeStringInput(Scanner input, String label) {
         System.out.println(label + ": ");
         return input.next();
-        /*System.out.println(label + ": ");
-        String text = null;
-        boolean isInvalid = true;
-        do {
-            if (input.hasNext()) {
-                text = input.next();
-                isInvalid = false;
-            } else {
-                System.out.println("You need to write something.");
-            }
-        }
-        while (isInvalid);
-
-        return text;*/
     }
 
     static int takeIntInput(Scanner input, String label) {
@@ -48,12 +34,12 @@ class InputTaker {
 
     static long takeLongInput(Scanner input) {
         boolean isInvalid = true;
-        int integerInput = 0;
+        long longInput = 0;
         while (isInvalid) {
             try {
                 System.out.println("pesel: ");
-                integerInput = input.nextInt();
-                if (integerInput > 0) {
+                longInput = input.nextInt();
+                if (longInput > 0) {
                     isInvalid = false;
                 } else {
                     System.out.println("Negative number");
@@ -63,7 +49,7 @@ class InputTaker {
                 input.next();
             }
         }
-        return integerInput;
+        return longInput;
     }
 }
 

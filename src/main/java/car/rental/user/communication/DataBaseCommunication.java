@@ -1,11 +1,8 @@
 package car.rental.user.communication;
 
-import car.rental.DB.CarRentalInterfaces.CarStorageInterface;
-import car.rental.DB.CarRentalInterfaces.ClientStorageInterface;
-import car.rental.DB.CarRentalInterfaces.RentalStorageInterface;
-import car.rental.DB.MySQLCarStorage;
-import car.rental.DB.MySQLClientStorage;
-import car.rental.DB.MySQLRentalStorage;
+import car.rental.repository.CarStorageInterface;
+import car.rental.repository.ClientStorageInterface;
+import car.rental.repository.RentalStorageInterface;
 import car.rental.model.Car;
 import car.rental.model.CarRental;
 import car.rental.model.Client;
@@ -16,18 +13,21 @@ import java.sql.SQLException;
 
 
 public class DataBaseCommunication {
-
-    private RentalStorageInterface mySQLRentalStorage = new MySQLRentalStorage();
-    private CarStorageInterface mySQLCarStorage = new MySQLCarStorage();
-    private ClientStorageInterface mySQLClientStorage = new MySQLClientStorage();
+    private ClientStorageInterface clientStorage;
+    private CarStorageInterface carStorage;
+    private RentalStorageInterface rentalStorage;
     private Logger logger;
 
-    public DataBaseCommunication() throws SQLException {
+    public DataBaseCommunication(ClientStorageInterface clientStorage, CarStorageInterface carStorage, RentalStorageInterface rentalStorage) {
+        this.clientStorage = clientStorage;
+        this.carStorage = carStorage;
+        this.rentalStorage = rentalStorage;
         logger = LoggerFactory.getLogger(DataBaseCommunication.class);
     }
 
     public void executeAddClientMessage(Client client) throws SQLException {
-        if (mySQLClientStorage.addClient(client)) {
+        boolean isTrue = clientStorage.addClient(client);
+        if (isTrue) {
             logger.info("Account was created");
         } else {
             logger.info("Account was not created");
@@ -35,7 +35,7 @@ public class DataBaseCommunication {
     }
 
     public void executeMakeCarAvailableMessage(Car car) throws SQLException {
-        if (mySQLCarStorage.makeCarAvailable(car)) {
+        if (carStorage.makeCarAvailable(car)) {
             logger.info("Car was made available");
         } else {
             logger.info("Car was not made available");
@@ -43,7 +43,7 @@ public class DataBaseCommunication {
     }
 
     public void executeMakeCarUnvaliableMessage(Car car) throws SQLException {
-        if (mySQLCarStorage.makeCarUnavailable(car)) {
+        if (carStorage.makeCarUnavailable(car)) {
             logger.info("Car was made unvaliable");
         } else {
             logger.info("Car was not made unvaliable");
@@ -51,7 +51,7 @@ public class DataBaseCommunication {
     }
 
     public void executeCreateCarMessage(Car car) throws SQLException {
-        if (mySQLCarStorage.addNewCar(car)) {
+        if (carStorage.addNewCar(car)) {
             logger.info("Car was created");
         } else {
             logger.info("Car was not created");
@@ -59,7 +59,7 @@ public class DataBaseCommunication {
     }
 
     public void executeCarRentalMessage(CarRental carRental) throws SQLException {
-        if (mySQLRentalStorage.rentACar(carRental)) {
+        if (rentalStorage.rentACar(carRental)) {
             logger.info("Car was rented");
         } else {
             logger.info("Car was not rented");
@@ -67,7 +67,7 @@ public class DataBaseCommunication {
     }
 
     public void executeReturnCarMessage(Car car) throws SQLException {
-        if (mySQLRentalStorage.returnACar(car)) {
+        if (rentalStorage.returnACar(car)) {
             logger.info("Car was returned");
         } else {
             logger.info("Car was not returned");
