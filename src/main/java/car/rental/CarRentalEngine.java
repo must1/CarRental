@@ -19,8 +19,8 @@ class CarRentalEngine {
     private static final int WORKER = 2;
     private int option;
     private Scanner input = new Scanner(System.in);
-    private ClientDataGetter clientDataGetter = new ClientDataGetter();
-    private WorkerDataGetter workerDataGetter = new WorkerDataGetter();
+    private ClientDataGetter clientDataGetter;
+    private WorkerDataGetter workerDataGetter;
     private Logger logger;
     private ClientStorageInterface clientStorage;
     private CarStorageInterface carStorage;
@@ -31,6 +31,8 @@ class CarRentalEngine {
         this.carStorage = carStorage;
         this.rentalStorage = rentalStorage;
         logger = LoggerFactory.getLogger(CarRentalEngine.class);
+        clientDataGetter = new ClientDataGetter();
+        workerDataGetter = new WorkerDataGetter();
     }
 
     void startCarRental() throws SQLException {
@@ -74,21 +76,16 @@ class CarRentalEngine {
             case 3:
                 Client readClients = clientDataGetter.populateTableRent(input);
                 List<CarRental> rentedCars = rentalStorage.getClientRentals(readClients);
-                StringBuilder sb = new StringBuilder();
-
-                for (CarRental rentedCarsFullInfo : rentedCars)
-                    sb.append(String.valueOf(rentedCarsFullInfo));
-
-                logger.info(sb.toString());
+                for (CarRental rentedCar : rentedCars) {
+                    logger.info(String.valueOf(rentedCar));
+                }
                 break;
             case 4:
                 List<Car> cars = carStorage.getAllCars();
-                sb = new StringBuilder();
 
-                for (Car carsFullInfo : cars)
-                    sb.append(String.valueOf(carsFullInfo));
-
-                logger.info(sb.toString());
+                for (Car car : cars) {
+                    logger.info(String.valueOf(car));
+                }
                 break;
             case 5:
                 break;
@@ -100,21 +97,17 @@ class CarRentalEngine {
         switch (option) {
             case 1:
                 List<Client> clients = clientStorage.getAllClients();
-                StringBuilder sb = new StringBuilder();
-
-                for (Client clientFullInfo : clients)
-                    sb.append(String.valueOf(clientFullInfo));
-
-                logger.info(sb.toString());
+                
+                for (Client client : clients) {
+                    logger.info(String.valueOf(client));
+                }
                 break;
             case 2:
                 List<Car> cars = carStorage.getAllCars();
-                sb = new StringBuilder();
 
-                for (Car carsFullInfo : cars)
-                    sb.append(String.valueOf(carsFullInfo));
-
-                logger.info(sb.toString());
+                for (Car car : cars) {
+                    logger.info(String.valueOf(car));
+                }
                 break;
             case 3:
                 Car readCar = workerDataGetter.makeCarAvailable(input);
