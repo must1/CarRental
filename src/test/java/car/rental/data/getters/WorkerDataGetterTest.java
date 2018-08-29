@@ -42,7 +42,7 @@ class WorkerDataGetterTest {
     @Test
     void makeCarAavailable() {
         Scanner scanner = new Scanner("Mazda\n1998");
-        Car car = workerDataGetter.makeCarAavailable(scanner);
+        Car car = workerDataGetter.makeCarAvailable(scanner);
 
         assertNotNull(car);
 

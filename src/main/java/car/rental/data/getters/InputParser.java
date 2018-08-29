@@ -1,18 +1,15 @@
 package car.rental.data.getters;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class InputTaker {
-    static String takeStringInput(Scanner input, String label) {
+class InputParser {
+    static String readString(Scanner input, String label) {
         System.out.println(label + ": ");
         return input.next();
     }
 
-    static int takeIntInput(Scanner input, String label) {
+    static int readInteger(Scanner input, String label) {
         boolean isInvalid = true;
         int integerInput = 0;
         while (isInvalid) {
@@ -32,7 +29,7 @@ class InputTaker {
         return integerInput;
     }
 
-    static long takeLongInput(Scanner input) {
+    static long readLong(Scanner input) {
         boolean isInvalid = true;
         long longInput = 0;
         while (isInvalid) {

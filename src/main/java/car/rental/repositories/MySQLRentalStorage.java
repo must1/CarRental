@@ -1,4 +1,4 @@
-package car.rental.repository;
+package car.rental.repositories;
 
 import car.rental.model.Car;
 import car.rental.model.CarRental;
@@ -37,7 +37,7 @@ public class MySQLRentalStorage implements RentalStorageInterface {
     }
 
     @Override
-    public boolean rentACar(CarRental rentingACar) throws SQLException {
+    public boolean rentCar(CarRental rentingACar) throws SQLException {
         int count = 0;
         boolean isAvailable = true;
 

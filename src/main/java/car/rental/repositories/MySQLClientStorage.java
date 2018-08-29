@@ -1,4 +1,4 @@
-package car.rental.repository;
+package car.rental.repositories;
 
 import car.rental.model.Client;
 

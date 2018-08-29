@@ -1,4 +1,4 @@
-package car.rental.repository;
+package car.rental.repositories;
 
 import car.rental.model.Car;
 
@@ -13,7 +13,6 @@ public class MySQLCarStorage implements CarStorageInterface {
     public MySQLCarStorage() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rentalcar?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(), "root", "9234355q");
     }
-
 
     @Override
     public List<Car> getAllCars() throws SQLException {

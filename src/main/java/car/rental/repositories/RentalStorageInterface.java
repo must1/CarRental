@@ -1,4 +1,4 @@
-package car.rental.repository;
+package car.rental.repositories;
 
 import car.rental.model.Car;
 import car.rental.model.CarRental;
@@ -10,7 +10,7 @@ import java.util.List;
 public interface RentalStorageInterface {
     List<CarRental> getClientRentals(Client client) throws SQLException;
 
-    boolean rentACar(CarRental rentingACar) throws SQLException;
+    boolean rentCar(CarRental rentingACar) throws SQLException;
 
     boolean returnACar(Car car) throws SQLException;
 }

@@ -1,8 +1,9 @@
+/*
 package car.rental;
 
-import car.rental.repository.MySQLCarStorage;
-import car.rental.repository.MySQLClientStorage;
-import car.rental.repository.MySQLRentalStorage;
+import car.rental.repositories.MySQLCarStorage;
+import car.rental.repositories.MySQLClientStorage;
+import car.rental.repositories.MySQLRentalStorage;
 import car.rental.model.Car;
 import car.rental.model.Client;
 import car.rental.model.CarRental;
@@ -121,3 +122,4 @@ public class CarRentalOptionsTest {
         assertEquals(expected, actual);
     }
 }
+*/

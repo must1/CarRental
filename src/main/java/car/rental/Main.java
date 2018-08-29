@@ -1,8 +1,8 @@
 package car.rental;
 
-import car.rental.repository.MySQLCarStorage;
-import car.rental.repository.MySQLClientStorage;
-import car.rental.repository.MySQLRentalStorage;
+import car.rental.repositories.MySQLCarStorage;
+import car.rental.repositories.MySQLClientStorage;
+import car.rental.repositories.MySQLRentalStorage;
 
 import java.sql.SQLException;
 
@@ -12,8 +12,7 @@ public class Main {
         MySQLClientStorage mySQLClientStorage = new MySQLClientStorage();
         MySQLCarStorage mySQLCarStorage = new MySQLCarStorage();
         MySQLRentalStorage mySQLRentalStorage = new MySQLRentalStorage();
-        CarRentalOptions carRentalOptions = new CarRentalOptions(mySQLClientStorage, mySQLCarStorage, mySQLRentalStorage);
-        CarRentalEngine carRentalEngine = new CarRentalEngine(carRentalOptions);
+        CarRentalEngine carRentalEngine = new CarRentalEngine(mySQLClientStorage, mySQLCarStorage, mySQLRentalStorage);
         carRentalEngine.startCarRental();
     }
 }

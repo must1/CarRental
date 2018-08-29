@@ -16,26 +16,26 @@ public class ClientDataGetter {
         int maxNumberOfClients = 999;
         client.setClientNumber(rand.nextInt(maxNumberOfClients));
 
-        client.setName(InputTaker.takeStringInput(input, "name"));
-        client.setSurname(InputTaker.takeStringInput(input, "surname"));
-        client.setCity(InputTaker.takeStringInput(input, "city"));
-        client.setStreet(InputTaker.takeStringInput(input, "street"));
-        client.setRentDate(InputTaker.takeStringInput(input, "rent date"));
-        client.setHouseNumber(InputTaker.takeIntInput(input, "house number"));
-        client.setPeselNumber(InputTaker.takeLongInput(input));
+        client.setName(InputParser.readString(input, "name"));
+        client.setSurname(InputParser.readString(input, "surname"));
+        client.setCity(InputParser.readString(input, "city"));
+        client.setStreet(InputParser.readString(input, "street"));
+        client.setRentDate(InputParser.readString(input, "rent date"));
+        client.setHouseNumber(InputParser.readInteger(input, "house number"));
+        client.setPeselNumber(InputParser.readLong(input));
         System.out.println("Your client number is: " + client.getClientNumber());
 
         return client;
     }
 
-    public CarRental rentACar(Scanner input) {
+    public CarRental rentCar(Scanner input) {
         CarRental carRental = new CarRental();
 
-        carRental.setBrand(InputTaker.takeStringInput(input, "brand"));
-        carRental.setName(InputTaker.takeStringInput(input, "name"));
-        carRental.setSurname(InputTaker.takeStringInput(input, "surname"));
-        carRental.setRentDate(InputTaker.takeStringInput(input, "rent date"));
-        carRental.setClientNumber(InputTaker.takeIntInput(input, "client number"));
+        carRental.setBrand(InputParser.readString(input, "brand"));
+        carRental.setName(InputParser.readString(input, "name"));
+        carRental.setSurname(InputParser.readString(input, "surname"));
+        carRental.setRentDate(InputParser.readString(input, "rent date"));
+        carRental.setClientNumber(InputParser.readInteger(input, "client number"));
 
         return carRental;
     }
@@ -43,16 +43,16 @@ public class ClientDataGetter {
     public Client populateTableRent(Scanner input) {
         Client client = new Client();
 
-        client.setClientNumber(InputTaker.takeIntInput(input, "Input your client number: "));
+        client.setClientNumber(InputParser.readInteger(input, "Input your client number: "));
 
         return client;
     }
 
-    public Car returnACar(Scanner input) {
+    public Car returnCar(Scanner input) {
         Car car = new Car();
 
-        car.setBrand(InputTaker.takeStringInput(input, "Input brand of car that you want to return: "));
-        car.setClientNumber(InputTaker.takeIntInput(input, "Input your client number, otherwise car won't be removed from our CarRentalSQLDatabase!"));
+        car.setBrand(InputParser.readString(input, "Input brand of car that you want to return: "));
+        car.setClientNumber(InputParser.readInteger(input, "Input your client number, otherwise car won't be removed from our CarRentalSQLDatabase!"));
 
         return car;
     }

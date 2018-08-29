@@ -31,7 +31,7 @@ class ClientDataGetterTest {
     @Test
     void rentACar() {
         Scanner scanner = new Scanner("Mazda\nPeter\nParker\n20.02\n1234");
-        CarRental carRental = clientDataGetter.rentACar(scanner);
+        CarRental carRental = clientDataGetter.rentCar(scanner);
 
         assertNotNull(carRental);
 
@@ -45,7 +45,7 @@ class ClientDataGetterTest {
     @Test
     void returnACar() {
         Scanner scanner = new Scanner("Mazda\n12");
-        Car car = clientDataGetter.returnACar(scanner);
+        Car car = clientDataGetter.returnCar(scanner);
 
         assertNotNull(car);
 
