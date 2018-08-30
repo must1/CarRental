@@ -37,18 +37,26 @@ class CarRentalEngine {
 
     void startCarRental() throws SQLException {
         logger.info("Who are you?\n1. Customer\n2. Worker");
-        option = input.nextInt();
-        try {
-            switch (option) {
-                case CLIENT:
-                    executeClientCase();
-                    break;
-                case WORKER:
-                    executeWorkerCase();
-                    break;
+        boolean isInvalid = true;
+        while (isInvalid) {
+            try {
+                option = input.nextInt();
+                if (option == 1 || option == 2) {
+                    isInvalid = false;
+                    switch (option) {
+                        case CLIENT:
+                            executeClientCase();
+                            break;
+                        case WORKER:
+                            executeWorkerCase();
+                            break;
+                    }
+                } else
+                    logger.error("Try again");
+            } catch (InputMismatchException e) {
+                logger.error("Try again");
+                input.next();
             }
-        } catch (InputMismatchException e) {
-            logger.error("Try again");
         }
     }
 
@@ -75,6 +83,7 @@ class CarRentalEngine {
                 break;
             case 3:
                 Client readClients = clientDataGetter.populateTableRent(input);
+
                 List<CarRental> rentedCars = rentalStorage.getClientRentals(readClients);
                 for (CarRental rentedCar : rentedCars) {
                     logger.info(String.valueOf(rentedCar));
@@ -97,7 +106,7 @@ class CarRentalEngine {
         switch (option) {
             case 1:
                 List<Client> clients = clientStorage.getAllClients();
-                
+
                 for (Client client : clients) {
                     logger.info(String.valueOf(client));
                 }
@@ -111,6 +120,7 @@ class CarRentalEngine {
                 break;
             case 3:
                 Car readCar = workerDataGetter.makeCarAvailable(input);
+
                 if (carStorage.makeCarAvailable(readCar)) {
                     logger.info("Car was made available");
                 } else {
@@ -119,6 +129,7 @@ class CarRentalEngine {
                 break;
             case 4:
                 readCar = workerDataGetter.makeCarUnavailable(input);
+
                 if (carStorage.makeCarUnavailable(readCar)) {
                     logger.info("Car was made unvaliable");
                 } else {
@@ -141,11 +152,11 @@ class CarRentalEngine {
 
 
     private void executeClientCase() throws SQLException {
-        logger.info("1. Have you inputted your perdata before?\nN/Y: ");
+        logger.info("1. Have you inputted your personal data before?\nN/Y: ");
         if (input.next().toUpperCase().equals("N")) {
             Client client = clientDataGetter.createClient(input);
             clientStorage.addClient(client);
-            logger.info("Now you have your unique number clinet, use it where it is required!");
+            logger.info("Now you have your unique number client, use it where it is required!");
         } else {
             do {
                 logger.info("What do you want to do?");
