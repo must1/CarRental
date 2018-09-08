@@ -25,7 +25,6 @@ With inserting new client to DataBase, he gets unique client number, which is ne
 
 ### Technologies that has been used:
 - Java
-- Maven
 - JUnit
 - Mockito
 - Slf4j
