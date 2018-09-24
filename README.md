@@ -23,7 +23,7 @@ Worker can:
 
 With inserting new client to DataBase, he gets unique client number, which is needed to use in its menu.
 
-### Technologies that has been used:
+### Technologies that have been used:
 - Java
 - JUnit
 - Mockito
